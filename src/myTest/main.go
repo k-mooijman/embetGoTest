@@ -20,7 +20,9 @@ import (
 
 func main() {
 
-	log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
+	lib.Log()
+
+	//log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
 
 	//go lib.StartApi()
 	//todo := lib.Todo{"2", "duStuff", true}
