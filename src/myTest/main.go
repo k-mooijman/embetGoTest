@@ -20,15 +20,23 @@ import (
 
 func main() {
 
-	lib.Test()
-	lib.TestRead()
+	log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
+
+	//go lib.StartApi()
+	//todo := lib.Todo{"2", "duStuff", true}
+	//lib.AddTodo(todo)
+
+	//lib.CallbackTest()
+
+	//lib.Test()
+	//lib.TestRead()
 
 	//go embed.Start()
 
 	var testNr = 13
 	log.Printf("\n\nThis is test %v of me trying Go\n", testNr)
 
-	lib.PrintArguments()
+	//lib.PrintArguments()
 
 	startTime := time.Now()
 	// Perform some operations
@@ -45,7 +53,7 @@ func main() {
 
 	//getImageData("")
 
-	waitForQ()
+	//waitForQ()
 
 }
 
