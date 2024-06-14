@@ -2,6 +2,7 @@ package lib
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -40,4 +41,26 @@ func Log() {
 	})
 	CheckIfError(err)
 
+}
+
+func Stat() {
+	repoPath := "/home/kasper/development/kasper/projects/cleanProjectGo" // Replace with your repository path
+
+	r, err := git.PlainOpen(repoPath)
+	if err != nil {
+		log.Fatalf("Failed to open repository: %v", err)
+	}
+
+	w, err := r.Worktree()
+	if err != nil {
+		log.Fatalf("Failed to get worktree: %v", err)
+	}
+
+	status, err := w.Status()
+	if err != nil {
+		log.Fatalf("Failed to get status: %v", err)
+	}
+
+	fmt.Printf("Is the repository clean? %v\n", status.IsClean())
+	fmt.Println(status.String())
 }

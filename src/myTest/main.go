@@ -20,7 +20,7 @@ import (
 
 func main() {
 
-	lib.Log()
+	lib.Stat()
 
 	//log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
 
