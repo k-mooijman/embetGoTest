@@ -2,7 +2,10 @@ package lib
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/go-git/go-git/v5"
@@ -63,4 +66,48 @@ func Stat() {
 
 	fmt.Printf("Is the repository clean? %v\n", status.IsClean())
 	fmt.Println(status.String())
+
+	fmt.Printf("####################################### ")
+
+	StatGI()
+
+}
+
+func StatGI() {
+
+	// Paths to the local.gitignore and global.gitignore
+	localIgnorePath := ".gitignore"
+	globalIgnorePath := os.Getenv("HOME") + "/.gitignore_global"
+
+	// Read the.gitignore files
+	localIgnorePatterns, _ := readGitIgnore(localIgnorePath)
+	globalIgnorePatterns, _ := readGitIgnore(globalIgnorePath)
+
+	// Example path to check
+	pathToCheck := "/home/kasper/development/kasper/projects/cleanProjectGo"
+
+	// Check if the path should be ignored
+	isIgnored := shouldIgnore(pathToCheck, append(localIgnorePatterns, globalIgnorePatterns...))
+
+	fmt.Printf("\n \nShould ignore '%s'? %v\n", pathToCheck, isIgnored)
+}
+
+// Function to read and return the content of a.gitignore file
+func readGitIgnore(filePath string) ([]string, error) {
+	content, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		return nil, err
+	}
+	lines := strings.Split(string(content), "\n")
+	return lines, nil
+}
+
+// Function to check if a path should be ignored based on the ignore patterns
+func shouldIgnore(path string, patterns []string) bool {
+	for _, pattern := range patterns {
+		if strings.Contains(path, pattern) {
+			return true
+		}
+	}
+	return false
 }
