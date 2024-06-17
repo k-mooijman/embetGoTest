@@ -1,0 +1,21 @@
+### Get latest state
+
+POST http://localhost:8080/todos
+Content-Type: application/json
+
+{
+   "id": "3",
+    "title": "2222",
+    "completed": false
+ }
+
+
+
+
+### Get latest state
+
+GET http://localhost:8080/todos
+Content-Type: application/json
+
+
+###

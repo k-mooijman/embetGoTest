@@ -7,20 +7,33 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"mooijman.info/myTest/src/myTest/lib"
+	_ "mooijman.info/myTest/src/myTest/lib"
 	"os"
 	"os/exec"
 	"path"
 	"strconv"
 	"strings"
 	"time"
-
-	"mooijman.info/myTest/src/myTest/lib"
-	_ "mooijman.info/myTest/src/myTest/lib"
 )
 
 func main() {
 
-	lib.Stat()
+	//#############################   JSON   ################################
+	//jsonStr := `{"name":"John Doe", "age":30, "isEmployed":true , "info":{"one":1, "two":2}}`
+	//var result map[string]interface{}
+	//
+	//err := json.Unmarshal([]byte(jsonStr), &result)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//
+	//fmt.Println(result)
+	//#############################   JSON   ################################
+	//lib.GetImageData("")
+
+	//lib.Stat()
 
 	//log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
 
@@ -30,17 +43,17 @@ func main() {
 
 	//lib.CallbackTest()
 
-	//lib.Test()
-	//lib.TestRead()
+	lib.Test()
+	lib.TestRead()
 
 	//go embed.Start()
 
-	var testNr = 13
-	log.Printf("\n\nThis is test %v of me trying Go\n", testNr)
+	//var testNr = 13
+	//log.Printf("\n\nThis is test %v of me trying Go\n", testNr)
 
 	//lib.PrintArguments()
 
-	startTime := time.Now()
+	//startTime := time.Now()
 	// Perform some operations
 
 	//files, err := listFiles("/home/kasper/Downloads")
@@ -50,12 +63,10 @@ func main() {
 	//fmt.Println(files)
 
 	// Calculate elapsed time
-	elapsed := time.Since(startTime)
-	fmt.Println("Elapsed time:", elapsed)
-
-	//getImageData("")
-
-	//waitForQ()
+	//elapsed := time.Since(startTime)
+	//fmt.Println("Elapsed time:", elapsed)
+	time.Sleep(5 * time.Second)
+	waitForQ()
 
 }
 
@@ -86,7 +97,7 @@ func listFiles(dir string) ([]string, error) {
 func waitForQ() {
 	for {
 		scanner := bufio.NewScanner(os.Stdin)
-		fmt.Print("Enter command: ")
+		fmt.Print("Enter command (q/quit/exit): ")
 		scanner.Scan()
 		fmt.Println(scanner.Text())
 

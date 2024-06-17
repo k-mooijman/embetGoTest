@@ -92,8 +92,8 @@ func CountFiles() int {
 		return nil
 	})
 
+	fmt.Printf("variable ext = %v is of type %T \n \n \n", ext, ext)
 	fmt.Printf("variable images = %v is of type %T \n", imagesFiles, imagesFiles)
-	fmt.Printf("variable ext = %v is of type %T \n", ext, ext)
 
 	return count
 }
