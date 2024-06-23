@@ -14,10 +14,46 @@ import (
 	"path"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func main() {
+
+	//#############################   Prompt   ################################
+
+	//lib.BasicPrompt()
+
+	//lib.SelectAddPrompt()
+	//#############################   prompt   ################################
+	//#############################   Recursive   ################################
+	//
+	//var rec1a lib.Rec
+	//rec1a.Val = 3
+	//
+	//var rec2a lib.Rec
+	//rec2a.Val = 3
+	//
+	//var rec3a lib.Rec
+	//rec3a.RecVal1 = &rec1a
+	//rec3a.RecVal2 = &rec2a
+	//
+	//var rec1 lib.Rec
+	//rec1.Val = 3
+	//
+	//var rec2 lib.Rec
+	//rec2.Val = 3
+	//
+	//var rec3 lib.Rec
+	//rec3.RecVal1 = &rec1
+	//rec3.RecVal2 = &rec2
+	//
+	//var rec0 lib.Rec
+	//rec0.RecVal1 = &rec3a
+	//rec0.RecVal2 = &rec3
+	//
+	//rec0.Calc()
+	//fmt.Println(rec0.Val)
+
+	//#############################   Recursive   ################################
 
 	//#############################   JSON   ################################
 	//jsonStr := `{"name":"John Doe", "age":30, "isEmployed":true , "info":{"one":1, "two":2}}`
@@ -31,11 +67,25 @@ func main() {
 	//
 	//fmt.Println(result)
 	//#############################   JSON   ################################
-	//lib.GetImageData("")
+	//#############################   imageWalker   ################################
+	//
+	//image, err := lib.GetImageData("/home/kasper/Downloads/20240611_225243.jpg")
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	////image.AddHash()
+	////image.AddOsData()
+	//
+	//fmt.Printf("images = %v is of type %T \n", image, image)
+	//fmt.Printf("hash = %v is of type %T \n", image.Hash, image.Hash)
+	//fmt.Printf("Ext = %v is of type %T \n", image.Extension, image.Extension)
+	//fmt.Printf("time = %v is of type %T \n", image.OSDateTime, image.OSDateTime)
+	//fmt.Printf("size = %v is of type %T \n", image.Size, image.Size)
+	//#############################   imageWalker   ################################
 
 	//lib.Stat()
 
-	//log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
+	log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
 
 	//go lib.StartApi()
 	//todo := lib.Todo{"2", "duStuff", true}
@@ -43,8 +93,8 @@ func main() {
 
 	//lib.CallbackTest()
 
-	lib.Test()
-	lib.TestRead()
+	//lib.Test()
+	//lib.TestRead()
 
 	//go embed.Start()
 
@@ -65,18 +115,19 @@ func main() {
 	// Calculate elapsed time
 	//elapsed := time.Since(startTime)
 	//fmt.Println("Elapsed time:", elapsed)
-	time.Sleep(5 * time.Second)
-	waitForQ()
+
+	//time.Sleep(5 * time.Second)
+	//waitForQ()
 
 }
 
 func listFiles(dir string) ([]string, error) {
 	listing := []string{}
-	f, err := os.Open(dir)
+	file, err := os.Open(dir)
 	if err != nil {
 		return listing, err
 	}
-	files, err := f.Readdir(0)
+	files, err := file.Readdir(0)
 	if err != nil {
 		return listing, err
 	}

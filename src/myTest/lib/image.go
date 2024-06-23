@@ -1,18 +1,49 @@
 package lib
 
 import (
-	"fmt"
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/json"
+	"errors"
+	"io"
 	"log"
+	"os"
 	"os/exec"
+	"path"
 )
 
-func GetImageData(file string) {
+type ImageData struct {
+	SourceFile             string `json:"SourceFile" sql:"SourceFile"`
+	DateTimeOriginal       string `json:"DateTimeOriginal" sql:"DateTimeOriginal"`
+	Make                   string `json:"Make" sql:"Make"`
+	Model                  string `json:"Model" sql:"Model"`
+	GPSDateTime            string `json:"GPSDateTime" sql:"GPSDateTime"`
+	SubSecDateTimeOriginal string `json:"SubSecDateTimeOriginal" sql:"SubSecDateTimeOriginal"`
+	Hash                   string `json:"Hash" sql:"Hash"`
+	Extension              string `json:"Extension" sql:"Extension"`
+	OSDateTime             string `json:"OSDateTime" sql:"OSDateTime"`
+	Size                   int64  `json:"Size" sql:"Size"`
+}
 
-	//exiftool -json -DateTimeOriginal -d "%Y-%m-%d_%H-%M-%S %f"  -make -model -GPSDateTime -SubSecDateTimeOriginal
+func (image *ImageData) AddHash() {
+	image.Hash = calcSha256(image.SourceFile)
+}
 
-	filename := "/home/kasper/Downloads/20240611_225243.jpg"
+func (image *ImageData) AddOsData() {
+
+	fileInfo, err := os.Stat(image.SourceFile)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	image.OSDateTime = fileInfo.ModTime().Format("2006-01-02 15:04:05")
+	image.Size = fileInfo.Size()
+	image.Extension = path.Ext(fileInfo.Name())
+}
+
+func GetImageData(filename string) (ImageData, error) {
+
 	command := "/usr/bin/exiftool"
-	//args := []string{"/usr/bin/exiftool", "-time:SubSecDateTimeOriginal", "-G1", "-a", "-s", filename}
 	args := []string{"-json", "-DateTimeOriginal", "-d", "\"%Y-%m-%d_%H-%M-%S %f\"", "-make", "-model", "-GPSDateTime", "-SubSecDateTimeOriginal", filename}
 
 	out, err := exec.Command(command, args...).Output()
@@ -20,12 +51,39 @@ func GetImageData(file string) {
 		log.Fatal(err)
 	}
 
-	//fmt.Printf("variable out = %v is of type %T \n", out, out)
 	myString := string(out)
-	fmt.Printf("\n\n=========================\n\n")
+	//
+	//fmt.Printf("\n\n=========================\n\n")
+	//
+	//fmt.Printf("%v  \n\n", myString)
+	//
+	//fmt.Printf("\n\n=========================\n\n")
 
-	fmt.Printf("%v  \n\n", myString)
+	var imageBlock []ImageData
 
-	fmt.Printf("\n\n=========================\n\n")
+	errJ := json.Unmarshal([]byte(myString), &imageBlock)
+	if errJ != nil {
+		log.Fatalf("Unable to marshal JSON due to %s", err)
+	}
+	if len(imageBlock) == 0 {
+		var imageData ImageData
+		return imageData, errors.New("could not collect Exif data")
+	}
+	var image = imageBlock[0]
+	return image, nil
+}
 
+func calcSha256(filename string) string {
+	f, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	h := sha256.New()
+	if _, err := io.Copy(h, f); err != nil {
+		log.Fatal(err)
+	}
+	sha := base64.URLEncoding.EncodeToString(h.Sum(nil))
+	return sha
 }
