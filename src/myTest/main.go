@@ -7,13 +7,14 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"mooijman.info/myTest/src/myTest/lib"
-	_ "mooijman.info/myTest/src/myTest/lib"
 	"os"
 	"os/exec"
 	"path"
 	"strconv"
 	"strings"
+
+	"mooijman.info/myTest/src/myTest/lib"
+	_ "mooijman.info/myTest/src/myTest/lib"
 )
 
 func main() {
@@ -21,6 +22,7 @@ func main() {
 	//#############################   Prompt   ################################
 
 	//lib.BasicPrompt()
+	lib.SelectCustomPrompt()
 
 	//lib.SelectAddPrompt()
 	//#############################   prompt   ################################
@@ -85,7 +87,7 @@ func main() {
 
 	//lib.Stat()
 
-	log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
+	//log.Printf("\n\nFiles in folder %v  \n", lib.CountFiles())
 
 	//go lib.StartApi()
 	//todo := lib.Todo{"2", "duStuff", true}
