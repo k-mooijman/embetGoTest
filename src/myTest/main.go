@@ -19,10 +19,13 @@ import (
 
 func main() {
 
+	lib.FileWatcher()
+
 	//#############################   Prompt   ################################
 
 	//lib.BasicPrompt()
-	lib.SelectCustomPrompt()
+	//lib.SelectCustomPrompt()
+	lib.CustomPrompt()
 
 	//lib.SelectAddPrompt()
 	//#############################   prompt   ################################
