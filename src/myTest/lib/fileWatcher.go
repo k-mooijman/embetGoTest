@@ -40,6 +40,10 @@ func FileWatcher() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	err = watcher.Add("/home/kasper/temp")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	//Block main goroutine forever.
 	<-make(chan struct{})

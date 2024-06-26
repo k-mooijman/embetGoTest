@@ -19,7 +19,7 @@ import (
 
 func main() {
 
-	lib.FileWatcher()
+	go lib.FileWatcher()
 
 	//#############################   Prompt   ################################
 
@@ -122,7 +122,7 @@ func main() {
 	//fmt.Println("Elapsed time:", elapsed)
 
 	//time.Sleep(5 * time.Second)
-	//waitForQ()
+	waitForQ()
 
 }
 
