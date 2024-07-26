@@ -52,5 +52,6 @@ require (
 	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
 	gopkg.in/src-d/go-billy.v4 v4.3.2 // indirect
 	gopkg.in/src-d/go-git.v4 v4.13.1 // indirect
+	gopkg.in/telebot.v3 v3.3.6 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )

@@ -12,20 +12,42 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"time"
 
 	"mooijman.info/myTest/src/myTest/lib"
+
 	_ "mooijman.info/myTest/src/myTest/lib"
 )
 
 func main() {
 
-	go lib.FileWatcher()
+	//lpass show --password 5997716042849405729
+
+	token, err := exec.Command("lpass", "show", "--password", "5997716042849405729").Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	lib.TelegramBod(string(token))
+	userID := int64(6065413981) //	kasper 0648947942
+	//userID := int64(7344285136) //  Kasper 44221313
+	lib.SendMessageToUser(userID, "Bosque just woke up!")
+
+	//misteryBox := interface{}(10)
+	//
+	//test, ok := misteryBox.(int)
+	//
+	//if ok {
+	//	fmt.Printf("images = %v is of type %T \n", test, test)
+	//}
+
+	//lib.FileWatcher()
 
 	//#############################   Prompt   ################################
 
 	//lib.BasicPrompt()
 	//lib.SelectCustomPrompt()
-	lib.CustomPrompt()
+	//lib.CustomPrompt()
 
 	//lib.SelectAddPrompt()
 	//#############################   prompt   ################################
@@ -121,7 +143,7 @@ func main() {
 	//elapsed := time.Since(startTime)
 	//fmt.Println("Elapsed time:", elapsed)
 
-	//time.Sleep(5 * time.Second)
+	time.Sleep(5 * time.Second)
 	waitForQ()
 
 }
